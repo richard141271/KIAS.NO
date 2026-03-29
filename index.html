@@ -17,6 +17,7 @@
         --card: #f8fafc;
         --border: #e2e8f0;
         --accent: #0b7a37;
+        --accent-2: #16a34a;
         --shadow: 0 12px 30px rgba(2, 6, 23, 0.08);
         --radius: 16px;
         --max: 1000px;
@@ -68,6 +69,39 @@
         box-shadow: var(--shadow);
       }
 
+      .topbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .navlink {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.85);
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .navlink:hover {
+        text-decoration: none;
+        border-color: rgba(11, 122, 55, 0.35);
+        color: var(--text);
+      }
+
       .brand {
         display: grid;
         gap: 10px;
@@ -78,6 +112,35 @@
         max-width: 360px;
         width: min(360px, 100%);
         height: auto;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .btn {
+        appearance: none;
+        border: 1px solid rgba(11, 122, 55, 0.25);
+        background: linear-gradient(180deg, rgba(22, 163, 74, 0.14), rgba(11, 122, 55, 0.10));
+        color: var(--text);
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-weight: 750;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        border-color: rgba(11, 122, 55, 0.45);
+      }
+
+      .btn.secondary {
+        background: #ffffff;
+        border-color: var(--border);
+        font-weight: 700;
+        color: var(--muted);
       }
 
       h1 {
@@ -132,6 +195,23 @@
         color: var(--muted);
       }
 
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .kicker::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent-2);
+        box-shadow: 0 0 0 6px rgba(22, 163, 74, 0.12);
+      }
+
       .pill {
         display: inline-flex;
         align-items: center;
@@ -170,13 +250,185 @@
         font-size: 0.95rem;
         text-align: center;
       }
+
+      .form-wrap {
+        display: grid;
+        gap: 14px;
+      }
+
+      .form {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #ffffff;
+      }
+
+      .form h3 {
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .form p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      @media (max-width: 720px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-weight: 700;
+        color: var(--text);
+        font-size: 0.95rem;
+      }
+
+      input,
+      textarea,
+      select {
+        font: inherit;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 10px;
+        background: #ffffff;
+        color: var(--text);
+      }
+
+      textarea {
+        min-height: 130px;
+        resize: vertical;
+      }
+
+      .service-table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+
+      .service-table th,
+      .service-table td {
+        padding: 10px 10px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+        text-align: left;
+        color: var(--muted);
+      }
+
+      .service-table th {
+        background: rgba(148, 163, 184, 0.12);
+        color: var(--text);
+        font-weight: 800;
+        font-size: 0.95rem;
+      }
+
+      .service-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .check {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      .check input {
+        width: 18px;
+        height: 18px;
+        margin: 0;
+      }
+
+      .print-area {
+        display: none;
+      }
+
+      .no-print {
+        display: inline-flex;
+      }
+
+      body[data-printing="true"] .wrap > *:not(.print-area) {
+        display: none !important;
+      }
+
+      body[data-printing="true"] .print-area {
+        display: block;
+        padding: 0;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm;
+        }
+
+        body {
+          background: #ffffff;
+        }
+
+        .wrap {
+          padding: 0;
+        }
+
+        .wrap > *:not(.print-area) {
+          display: none !important;
+        }
+
+        .print-area {
+          display: block !important;
+        }
+
+        .no-print {
+          display: none !important;
+        }
+
+        a {
+          color: var(--text);
+          text-decoration: none;
+        }
+
+        input,
+        textarea,
+        select {
+          border: 1px solid #b6c0cd;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="wrap">
       <header>
+        <div class="topbar">
+          <nav aria-label="Navigasjon">
+            <a class="navlink" href="#tjenester">Tjenester</a>
+            <a class="navlink" href="#selvbetjening">Selvbetjening</a>
+            <a class="navlink" href="#skjema">Leveringsskjema</a>
+            <a class="navlink" href="#kontakt">Kontakt</a>
+          </nav>
+          <div class="actions">
+            <button class="btn" type="button" id="print-btn-top">Skriv ut leveringsskjema</button>
+            <a class="btn secondary" href="mailto:post@kias.no">Send e-post</a>
+          </div>
+        </div>
         <div class="brand">
-          <img class="logo" src="logo.png" alt="Kalesje & Industrisøm AS®" />
+          <picture>
+            <source srcset="kalesje_industrisom_transparent_clean.png" />
+            <img class="logo" src="logo.png" alt="Kalesje & Industrisøm AS®" loading="eager" decoding="async" />
+          </picture>
           <h1>Kalesje &amp; Industrisøm AS®</h1>
           <p class="lead">
             Salmakerbedrift i Tistedal – båtkalesjer, reparasjoner og møbeltapetsering. 40-årsjubileum i 2025.
@@ -200,7 +452,7 @@
       </header>
 
       <main>
-        <section class="card">
+        <section class="card" id="tjenester">
           <h2>Tjenester</h2>
           <p>Vi tilbyr solide løsninger i duk, søm og detaljer – for båt og hjem.</p>
           <ul class="list">
@@ -210,7 +462,7 @@
           </ul>
         </section>
 
-        <aside class="card">
+        <aside class="card" id="kontakt">
           <h2>Kontakt</h2>
           <div class="meta">
             <div>
@@ -231,15 +483,164 @@
           </div>
         </aside>
 
-        <section class="card" style="grid-column: 1 / -1">
+        <section class="card" id="selvbetjening" style="grid-column: 1 / -1">
           <h2>Selvbetjening (innlevering og utlevering)</h2>
           <p>
             Vi har selvbetjening på adressen. Kunder kan levere inn båtkalesjer som skal repareres, og hente ut når det
             er ferdig.
           </p>
           <p><span class="label">Tilgjengelig:</span> 07.00–23.00, 365 dager i året</p>
+          <p class="kicker" style="margin-top: 12px">Slik fungerer det</p>
+          <ul class="list" style="margin-top: 10px">
+            <li>Skriv ut leveringsskjema, fyll det ut og legg det sammen med kalesjen i en sekk ved innleveringen.</li>
+            <li>Når vi har sett på jobben, sender vi deg pristilbud på e-post.</li>
+            <li>Når arbeidet er ferdig, får du beskjed. Utlevering skjer i selvbetjeningen.</li>
+            <li>Selvbetjeningen er kameraovervåket og filmes 24/7 hele året.</li>
+          </ul>
+        </section>
+
+        <section class="card" id="skjema" style="grid-column: 1 / -1">
+          <h2>Leveringsskjema (skriv ut og legg i sekk)</h2>
+          <p>
+            For at vi skal kunne behandle jobben raskt og riktig: skriv ut skjemaet, fyll det ut og legg det sammen med
+            kalesjen i en sekk ved innleveringen.
+          </p>
+          <div class="form-wrap">
+            <div class="actions">
+              <button class="btn" type="button" id="print-btn">Skriv ut skjema</button>
+              <button class="btn secondary" type="button" id="print-preview-btn">Forhåndsvis utskrift</button>
+            </div>
+            <form class="form" id="delivery-form" autocomplete="on">
+              <h3>Bestilling / pristilbud</h3>
+              <p>Skjema med manglende kontaktinformasjon kan bli forsinket eller ikke behandlet.</p>
+
+              <div class="form-grid">
+                <label>
+                  Dag / dato
+                  <input type="date" name="dato" id="dato" />
+                </label>
+                <label>
+                  Kalesjens farge (valgfritt)
+                  <input type="text" name="farge" inputmode="text" />
+                </label>
+                <label>
+                  Navn
+                  <input type="text" name="navn" inputmode="text" required />
+                </label>
+                <label>
+                  Mobil
+                  <input type="tel" name="mobil" inputmode="tel" required />
+                </label>
+                <label>
+                  E-post
+                  <input type="email" name="epost" inputmode="email" required />
+                </label>
+                <label>
+                  Adresse
+                  <input type="text" name="adresse" inputmode="text" required />
+                </label>
+                <label>
+                  Postnummer
+                  <input type="text" name="postnummer" inputmode="numeric" required />
+                </label>
+                <label>
+                  By
+                  <input type="text" name="by" inputmode="text" required />
+                </label>
+              </div>
+
+              <label>
+                Arbeidsbeskrivelse / info fra kunden
+                <textarea name="beskrivelse" placeholder="Beskriv problemet, ønsket løsning og evt. mål/merknader." required></textarea>
+              </label>
+
+              <div>
+                <div class="label" style="margin-bottom: 8px">Ønskede varer / tjenester (kryss av)</div>
+                <table class="service-table" aria-label="Tjenester">
+                  <thead>
+                    <tr>
+                      <th>Arbeid</th>
+                      <th style="width: 160px">Kryss av</th>
+                      <th>Merknad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Omsøm</td>
+                      <td><label class="check"><input type="checkbox" name="tjeneste_omsom" /> Ja</label></td>
+                      <td>Leveringstid og pris kan variere etter størrelse.</td>
+                    </tr>
+                    <tr>
+                      <td>Rens / impregnering</td>
+                      <td><label class="check"><input type="checkbox" name="tjeneste_rens" /> Ja</label></td>
+                      <td>Leveringstid og pris kan variere etter størrelse.</td>
+                    </tr>
+                    <tr>
+                      <td>Bytte vindu</td>
+                      <td><label class="check"><input type="checkbox" name="tjeneste_vindu" /> Ja</label></td>
+                      <td>Om vinduet er sydd inn i glidelås/kant eller annet kan pris variere.</td>
+                    </tr>
+                    <tr>
+                      <td>Glidelås</td>
+                      <td><label class="check"><input type="checkbox" name="tjeneste_glidelas" /> Ja</label></td>
+                      <td>Fjerning av gammel glidelås og innsetting av ny glidelås er inkludert.</td>
+                    </tr>
+                    <tr>
+                      <td>Lappe hull</td>
+                      <td><label class="check"><input type="checkbox" name="tjeneste_hull" /> Ja</label></td>
+                      <td>Oppgi gjerne antall/område i beskrivelsen.</td>
+                    </tr>
+                    <tr>
+                      <td>Trekk / puter</td>
+                      <td><label class="check"><input type="checkbox" name="tjeneste_puter" /> Ja</label></td>
+                      <td>Vi ser på putene og sender tilbud på e-post.</td>
+                    </tr>
+                    <tr>
+                      <td>Bøyler</td>
+                      <td><label class="check"><input type="checkbox" name="tjeneste_boyler" /> Ja</label></td>
+                      <td>Vi kontakter deg hvis vi lurer på noe.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>
+                Du vil motta et pristilbud på e-post. Du velger selv om du ønsker å benytte tilbudet. Ønsker du tilbudet
+                utført, mottar du en ordrebekreftelse og får beskjed når jobben er ferdig.
+              </p>
+              <div class="actions">
+                <button class="btn" type="button" id="print-btn-bottom">Skriv ut skjema</button>
+                <button class="btn secondary" type="reset">Tøm skjema</button>
+              </div>
+            </form>
+          </div>
         </section>
       </main>
+
+      <div class="print-area" id="print-area" aria-hidden="true">
+        <div class="form" style="border: none; padding: 0">
+          <div style="display: flex; justify-content: flex-end; margin-bottom: 10px">
+            <button class="btn secondary no-print" type="button" id="exit-preview">Tilbake</button>
+          </div>
+          <div style="display: grid; gap: 10px; align-items: start">
+            <picture>
+              <source srcset="kalesje_industrisom_transparent_clean.png" />
+              <img class="logo" src="logo.png" alt="Kalesje & Industrisøm AS®" loading="eager" decoding="async" />
+            </picture>
+            <div>
+              <div class="label" style="font-size: 1.15rem">Leveringsskjema – selvbetjent innlevering</div>
+              <div style="color: var(--muted)">Fredriksfrydveien 2, 1792 Tistedal · post@kias.no</div>
+            </div>
+          </div>
+          <div style="height: 12px"></div>
+          <div id="print-form"></div>
+          <div style="height: 10px"></div>
+          <div style="color: var(--muted); font-size: 0.95rem">
+            Legg ferdig utfylt skjema i sekk sammen med kalesjen ved innleveringen. Tilgjengelig 07.00–23.00, 365 dager i
+            året.
+          </div>
+        </div>
+      </div>
 
       <div class="footer">
         © <span id="year"></span> Kalesje &amp; Industrisøm AS®
@@ -248,6 +649,94 @@
 
     <script>
       document.getElementById("year").textContent = String(new Date().getFullYear());
+      const dateInput = document.getElementById("dato");
+      if (dateInput && !dateInput.value) {
+        const d = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        dateInput.value = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+      }
+
+      const form = document.getElementById("delivery-form");
+      const printArea = document.getElementById("print-area");
+      const printFormContainer = document.getElementById("print-form");
+
+      const buildPrintView = () => {
+        if (!form || !printFormContainer) return;
+        const clone = form.cloneNode(true);
+        clone.id = "delivery-form-print";
+        const buttons = clone.querySelectorAll("button");
+        buttons.forEach((b) => b.remove());
+        const textareas = clone.querySelectorAll("textarea");
+        textareas.forEach((t) => {
+          const mirror = document.createElement("div");
+          mirror.style.minHeight = "140px";
+          mirror.style.whiteSpace = "pre-wrap";
+          mirror.style.border = "1px solid #b6c0cd";
+          mirror.style.borderRadius = "10px";
+          mirror.style.padding = "10px";
+          mirror.textContent = t.value || "";
+          t.replaceWith(mirror);
+        });
+
+        const inputs = clone.querySelectorAll("input");
+        inputs.forEach((i) => {
+          if (i.type === "checkbox") {
+            i.checked = Boolean(form.querySelector(`[name="${CSS.escape(i.name)}"]`)?.checked);
+            i.disabled = true;
+          } else {
+            const original = form.querySelector(`[name="${CSS.escape(i.name)}"]`);
+            i.value = original ? original.value : i.value;
+            i.readOnly = true;
+          }
+        });
+        const required = clone.querySelectorAll("[required]");
+        required.forEach((r) => r.removeAttribute("required"));
+        printFormContainer.innerHTML = "";
+        printFormContainer.appendChild(clone);
+      };
+
+      const enterPrintMode = () => {
+        buildPrintView();
+        document.body.setAttribute("data-printing", "true");
+        if (printArea) printArea.setAttribute("aria-hidden", "false");
+        window.print();
+      };
+
+      const exitPrintMode = () => {
+        document.body.removeAttribute("data-printing");
+        if (printArea) printArea.setAttribute("aria-hidden", "true");
+      };
+
+      window.addEventListener("afterprint", exitPrintMode);
+
+      const hookPrintButton = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener("click", enterPrintMode);
+      };
+
+      hookPrintButton("print-btn");
+      hookPrintButton("print-btn-top");
+      hookPrintButton("print-btn-bottom");
+
+      const previewBtn = document.getElementById("print-preview-btn");
+      if (previewBtn) {
+        previewBtn.addEventListener("click", () => {
+          buildPrintView();
+          document.body.setAttribute("data-printing", "true");
+          if (printArea) printArea.setAttribute("aria-hidden", "false");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      const exitBtn = document.getElementById("exit-preview");
+      if (exitBtn) {
+        exitBtn.addEventListener("click", () => {
+          exitPrintMode();
+          const target = document.getElementById("skjema");
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
     </script>
   </body>
 </html>
