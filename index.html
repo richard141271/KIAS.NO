@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kalesje &amp; Industrisøm AS®</title>
+    <meta
+      name="description"
+      content="Kalesje & Industrisøm AS® i Tistedal – båtkalesjer, reparasjoner og møbeltapetsering. Selvbetjent innlevering og utlevering 07.00–23.00, 365 dager i året."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --text: #0f172a;
+        --muted: #475569;
+        --card: #f8fafc;
+        --border: #e2e8f0;
+        --accent: #0b7a37;
+        --shadow: 0 12px 30px rgba(2, 6, 23, 0.08);
+        --radius: 16px;
+        --max: 1000px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        line-height: 1.55;
+        color: var(--text);
+        background: radial-gradient(1200px 500px at 20% 0%, rgba(11, 122, 55, 0.10), transparent 70%),
+          radial-gradient(900px 400px at 90% 10%, rgba(34, 197, 94, 0.10), transparent 65%), var(--bg);
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 32px 20px 56px;
+      }
+
+      header {
+        display: grid;
+        gap: 18px;
+        align-items: center;
+        padding: 26px 22px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(8px);
+        box-shadow: var(--shadow);
+      }
+
+      .brand {
+        display: grid;
+        gap: 10px;
+      }
+
+      .logo {
+        display: block;
+        max-width: 360px;
+        width: min(360px, 100%);
+        height: auto;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 40px);
+        letter-spacing: -0.02em;
+      }
+
+      .lead {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      main {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 18px;
+      }
+
+      @media (max-width: 860px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--card);
+        padding: 18px 18px;
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 1.1rem;
+      }
+
+      .card p {
+        margin: 0 0 10px;
+        color: var(--muted);
+      }
+
+      .card p:last-child {
+        margin-bottom: 0;
+      }
+
+      .list {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: #ffffff;
+        border: 1px solid var(--border);
+        box-shadow: 0 1px 0 rgba(2, 6, 23, 0.04);
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .meta {
+        display: grid;
+        gap: 8px;
+      }
+
+      .meta div {
+        display: grid;
+        gap: 4px;
+      }
+
+      .label {
+        font-weight: 650;
+        color: var(--text);
+      }
+
+      .footer {
+        margin-top: 22px;
+        color: var(--muted);
+        font-size: 0.95rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <img class="logo" src="logo.png" alt="Kalesje & Industrisøm AS®" />
+          <h1>Kalesje &amp; Industrisøm AS®</h1>
+          <p class="lead">
+            Salmakerbedrift i Tistedal – båtkalesjer, reparasjoner og møbeltapetsering. 40 års jubileum i 2025.
+          </p>
+        </div>
+        <div class="grid">
+          <div class="pill">
+            <span class="label">E-post:</span>
+            <a href="mailto:post@kias.no">post@kias.no</a>
+          </div>
+          <div class="pill">
+            <span class="label">Adresse:</span>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Fredriksfrydveien%202%2C%201792%20Tistedal"
+              target="_blank"
+              rel="noreferrer"
+              >Fredriksfrydveien 2, 1792 Tistedal</a
+            >
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="card">
+          <h2>Tjenester</h2>
+          <p>Vi tilbyr solide løsninger i duk, søm og detaljer – for båt og hjem.</p>
+          <ul class="list">
+            <li>Båtkalesjer: produksjon, tilpasning og reparasjon</li>
+            <li>Møbeltapetsering og reparasjoner</li>
+            <li>Salmakerarbeid for spesialoppdrag</li>
+          </ul>
+        </section>
+
+        <aside class="card">
+          <h2>Kontakt</h2>
+          <div class="meta">
+            <div>
+              <div class="label">E-post</div>
+              <div><a href="mailto:post@kias.no">post@kias.no</a></div>
+            </div>
+            <div>
+              <div class="label">Adresse</div>
+              <div>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Fredriksfrydveien%202%2C%201792%20Tistedal"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Fredriksfrydveien 2, 1792 Tistedal</a
+                >
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="card" style="grid-column: 1 / -1">
+          <h2>Selvbetjening (innlevering og utlevering)</h2>
+          <p>
+            Vi har selvbetjening på adressen, åpen 24/7 – 365 dager i året. Kunder kan levere inn båtkalesjer som skal
+            repareres, og hente ut når det er ferdig.
+          </p>
+          <p><span class="label">Tilgjengelig:</span> 07.00–23.00</p>
+        </section>
+      </main>
+
+      <div class="footer">
+        © <span id="year"></span> Kalesje &amp; Industrisøm AS®
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    </script>
+  </body>
+</html>
