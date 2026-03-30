@@ -17,6 +17,7 @@
         --card: #f8fafc;
         --border: #e2e8f0;
         --accent: #0b7a37;
+        --accent-2: #16a34a;
         --shadow: 0 12px 30px rgba(2, 6, 23, 0.08);
         --radius: 16px;
         --max: 1000px;
@@ -121,9 +122,9 @@
 
       .btn {
         appearance: none;
-        border: 1px solid rgba(11, 122, 55, 0.85);
-        background: var(--accent);
-        color: #ffffff;
+        border: 1px solid rgba(11, 122, 55, 0.25);
+        background: linear-gradient(180deg, rgba(22, 163, 74, 0.14), rgba(11, 122, 55, 0.10));
+        color: var(--text);
         border-radius: 12px;
         padding: 10px 12px;
         font-weight: 750;
@@ -131,7 +132,7 @@
       }
 
       .btn:hover {
-        border-color: rgba(11, 122, 55, 0.95);
+        border-color: rgba(11, 122, 55, 0.45);
       }
 
       .btn.secondary {
