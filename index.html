@@ -352,14 +352,131 @@
         padding: 0;
       }
 
+      .print-sheet {
+        display: grid;
+        gap: 10px;
+        font-size: 11px;
+        line-height: 1.25;
+        color: #111827;
+      }
+
+      .print-header {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+
+      .print-header .logo {
+        max-width: 220px;
+        width: 100%;
+      }
+
+      .print-title {
+        display: grid;
+        gap: 2px;
+      }
+
+      .print-title .h {
+        font-weight: 900;
+        font-size: 13px;
+      }
+
+      .print-title .s {
+        color: #374151;
+      }
+
+      .print-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 14px;
+      }
+
+      .print-field {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 8px;
+        align-items: end;
+      }
+
+      .print-field .k {
+        font-weight: 800;
+        color: #111827;
+      }
+
+      .print-field .v {
+        min-height: 16px;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 2px;
+        color: #111827;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .print-block .k {
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+
+      .print-box {
+        border: 1px solid #9ca3af;
+        border-radius: 8px;
+        padding: 8px;
+        min-height: 95px;
+        white-space: pre-wrap;
+        overflow: hidden;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 12px;
+      }
+
+      .service-item {
+        display: grid;
+        grid-template-columns: 18px 1fr;
+        gap: 6px;
+        align-items: start;
+      }
+
+      .cb {
+        font-weight: 900;
+        font-size: 13px;
+        line-height: 1;
+      }
+
+      .print-footnote {
+        color: #374151;
+        display: grid;
+        gap: 2px;
+      }
+
       @media print {
         @page {
           size: A4;
-          margin: 12mm;
+          margin: 10mm;
         }
 
         body {
           background: #ffffff;
+        }
+
+        .print-sheet {
+          font-size: 10.5px;
+        }
+
+        .print-header {
+          grid-template-columns: 200px 1fr;
+        }
+
+        .print-header .logo {
+          max-width: 200px;
+        }
+
+        .print-box {
+          min-height: 85px;
         }
 
         .wrap {
@@ -604,23 +721,7 @@
           <div style="display: flex; justify-content: flex-end; margin-bottom: 10px">
             <button class="btn secondary no-print" type="button" id="exit-preview">Tilbake</button>
           </div>
-          <div style="display: grid; gap: 10px; align-items: start">
-            <picture>
-              <source srcset="kalesje_industrisom_transparent_clean.png" />
-              <img class="logo" src="logo.png" alt="Kalesje & Industrisøm AS®" loading="eager" decoding="async" />
-            </picture>
-            <div>
-              <div class="label" style="font-size: 1.15rem">Leveringsskjema – selvbetjent innlevering</div>
-              <div style="color: var(--muted)">Fredriksfrydveien 2, 1792 Tistedal · post@kias.no</div>
-            </div>
-          </div>
-          <div style="height: 12px"></div>
-          <div id="print-form"></div>
-          <div style="height: 10px"></div>
-          <div style="color: var(--muted); font-size: 0.95rem">
-            Legg ferdig utfylt skjema i sekk sammen med kalesjen ved innleveringen. Tilgjengelig 07.00–23.00, 365 dager i
-            året.
-          </div>
+          <div class="print-sheet" id="print-sheet"></div>
         </div>
       </div>
 
@@ -640,41 +741,83 @@
 
       const form = document.getElementById("delivery-form");
       const printArea = document.getElementById("print-area");
-      const printFormContainer = document.getElementById("print-form");
+      const printSheet = document.getElementById("print-sheet");
 
       const buildPrintView = () => {
-        if (!form || !printFormContainer) return;
-        const clone = form.cloneNode(true);
-        clone.id = "delivery-form-print";
-        const buttons = clone.querySelectorAll("button");
-        buttons.forEach((b) => b.remove());
-        const textareas = clone.querySelectorAll("textarea");
-        textareas.forEach((t) => {
-          const mirror = document.createElement("div");
-          mirror.style.minHeight = "140px";
-          mirror.style.whiteSpace = "pre-wrap";
-          mirror.style.border = "1px solid #b6c0cd";
-          mirror.style.borderRadius = "10px";
-          mirror.style.padding = "10px";
-          mirror.textContent = t.value || "";
-          t.replaceWith(mirror);
-        });
-
-        const inputs = clone.querySelectorAll("input");
-        inputs.forEach((i) => {
-          if (i.type === "checkbox") {
-            i.checked = Boolean(form.querySelector(`[name="${CSS.escape(i.name)}"]`)?.checked);
-            i.disabled = true;
-          } else {
-            const original = form.querySelector(`[name="${CSS.escape(i.name)}"]`);
-            i.value = original ? original.value : i.value;
-            i.readOnly = true;
+        if (!form || !printSheet) return;
+        const escapeHtml = (s) =>
+          String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+        const valueOf = (name) => {
+          const el = form.querySelector(`[name="${CSS.escape(name)}"]`);
+          if (!el) return "";
+          if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement) {
+            return el.value.trim();
           }
-        });
-        const required = clone.querySelectorAll("[required]");
-        required.forEach((r) => r.removeAttribute("required"));
-        printFormContainer.innerHTML = "";
-        printFormContainer.appendChild(clone);
+          return "";
+        };
+        const checkedOf = (name) => Boolean(form.querySelector(`[name="${CSS.escape(name)}"]`)?.checked);
+        const v = (name) => {
+          const val = valueOf(name);
+          return val ? escapeHtml(val) : "&nbsp;";
+        };
+        const cb = (name) => (checkedOf(name) ? "☑" : "☐");
+
+        const services = [
+          { name: "tjeneste_omsom", label: "Omsøm" },
+          { name: "tjeneste_rens", label: "Rens / impregnering" },
+          { name: "tjeneste_vindu", label: "Bytte vindu" },
+          { name: "tjeneste_glidelas", label: "Glidelås" },
+          { name: "tjeneste_hull", label: "Lappe hull" },
+          { name: "tjeneste_puter", label: "Trekk / puter" },
+          { name: "tjeneste_boyler", label: "Bøyler" },
+        ];
+
+        const servicesHtml = services
+          .map((s) => `<div class="service-item"><div class="cb">${cb(s.name)}</div><div>${escapeHtml(s.label)}</div></div>`)
+          .join("");
+
+        const beskrivelse = valueOf("beskrivelse");
+        const beskrivelseHtml = escapeHtml(beskrivelse);
+
+        printSheet.innerHTML = `
+          <div class="print-header">
+            <picture>
+              <source srcset="kalesje_industrisom_transparent_clean.png" />
+              <img class="logo" src="logo.png" alt="Kalesje &amp; Industrisøm AS®" loading="eager" decoding="async" />
+            </picture>
+            <div class="print-title">
+              <div class="h">Leveringsskjema – selvbetjent innlevering</div>
+              <div class="s">Fredriksfrydveien 2, 1792 Tistedal · post@kias.no</div>
+              <div class="s">Tilgjengelig 07.00–23.00, 365 dager i året</div>
+            </div>
+          </div>
+
+          <div class="print-grid" aria-label="Kontaktinformasjon">
+            <div class="print-field"><div class="k">Dag / dato</div><div class="v">${v("dato")}</div></div>
+            <div class="print-field"><div class="k">Kalesjens farge</div><div class="v">${v("farge")}</div></div>
+            <div class="print-field"><div class="k">Navn</div><div class="v">${v("navn")}</div></div>
+            <div class="print-field"><div class="k">Mobil</div><div class="v">${v("mobil")}</div></div>
+            <div class="print-field"><div class="k">E-post</div><div class="v">${v("epost")}</div></div>
+            <div class="print-field"><div class="k">Adresse</div><div class="v">${v("adresse")}</div></div>
+            <div class="print-field"><div class="k">Postnr</div><div class="v">${v("postnummer")}</div></div>
+            <div class="print-field"><div class="k">By</div><div class="v">${v("by")}</div></div>
+          </div>
+
+          <div class="print-block">
+            <div class="k">Arbeidsbeskrivelse / info fra kunden</div>
+            <div class="print-box">${beskrivelseHtml || "&nbsp;"}</div>
+          </div>
+
+          <div class="print-block">
+            <div class="k">Ønskede varer / tjenester</div>
+            <div class="services-grid">${servicesHtml}</div>
+          </div>
+
+          <div class="print-footnote">
+            <div>Legg ferdig utfylt skjema i sekk sammen med kalesjen ved innleveringen.</div>
+            <div>Du vil motta pristilbud på e-post. Ved godkjenning sender vi ordrebekreftelse.</div>
+          </div>
+        `;
       };
 
       const enterPrintMode = () => {
